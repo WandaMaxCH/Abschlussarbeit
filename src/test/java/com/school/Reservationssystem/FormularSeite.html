@@ -1,10 +1,56 @@
+<!--Seite mit Formular-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Reservation erfassen</title>
 </head>
 <body>
-$END$
+<h2>Bitte füllen Sie das Formular aus</h2>
+
+<form onsubmit="return validateForm()" novalidate>
+
+  <label for="datum">Datum:</label>
+  <input type="date" id="datum" name="datum" required min="<?= date('Y-m-d') ?>">
+
+  <label for="von">Von:</label>
+  <input type="time" id="von" name="von" required>
+
+  <label for="bis">Bis:</label>
+  <input type="time" id="bis" name="bis" required>
+
+  <label for="zimmer">Zimmer:</label>
+  <select id="zimmer" name="zimmer" required>
+    <option value="">Bitte wählen</option>
+    <option value="101">101</option>
+    <option value="102">102</option>
+    <option value="103">103</option>
+    <option value="104">104</option>
+    <option value="105">105</option>
+  </select>
+
+  <label for="bemerkung">Bemerkung (10–200 Zeichen):</label>
+  <textarea id="bemerkung" name="bemerkung" minlength="10" maxlength="200" required></textarea>
+
+  <label for="teilnehmer">Teilnehmerliste (Vorname Nachname, getrennt durch Komma):</label>
+  <input type="text" id="teilnehmer" name="teilnehmer"
+         pattern="^([A-Za-zÄÖÜäöüß]+\s[A-Za-zÄÖÜäöüß]+)(,\s*[A-Za-zÄÖÜäöüß]+\s[A-Za-zÄÖÜäöüß]+)*$"
+         title="Nur Vor- und Nachnamen mit Komma trennen (z. B. Max Müller, Anna Schmidt)"
+         required>
+
+  <button type="submit">Absenden</button>
+</form>
+
+<script>
+  function validateForm() {
+    const datum = document.getElementById('datum').value;
+    const heute = new Date().toISOString().split("T")[0];
+    if (datum <= heute) {
+      alert("Bitte ein Datum in der Zukunft wählen.");
+      return false;
+    }
+    return true;
+  }
+</script>
 </body>
 </html>
