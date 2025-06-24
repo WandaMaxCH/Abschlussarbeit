@@ -75,6 +75,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -85,8 +86,6 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.5.0</version>
 			</plugin>
-		</plugins>
-		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
