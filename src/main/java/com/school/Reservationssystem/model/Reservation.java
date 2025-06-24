@@ -1,4 +1,4 @@
-package com.school.Reservationssystem;
+package com.school.Reservationssystem.model;
 
 import java.sql.Time;
 

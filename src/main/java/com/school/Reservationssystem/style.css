@@ -54,3 +54,13 @@ input, textarea, select {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 700px;
+}
+
+td, th {
+    padding: 10px;
+    vertical-align: top;
+}
