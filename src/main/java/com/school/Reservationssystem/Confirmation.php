@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empt
 <h3>Ihr private-key:</h3>
 <h4>(mit den können Sie Ihre Reservation bearbeiten)</h4>
 
-<input type="text" id="privateKey" value="<?php echo htmlspecialchars($_POST['publicKey'] ?? ''); ?>" readonly>
+<input type="text" id="privateKey" value="<?php echo htmlspecialchars($_POST['privateKey'] ?? ''); ?>" readonly>
 
 <h3>Ihr public-key:</h3>
 <h4>(mit den können Sie Ihre Reservation einblenden lassen)</h4>

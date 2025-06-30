@@ -1,5 +1,12 @@
 <?php
 
+/*
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+exit;*/
+
+
 //Verbindungsdaten
 $servername = "localhost";
 $username = "root";
@@ -25,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $privateKey = $_POST['Private_Key'];
     $publicKey = $_POST['Public_Key'];
 } else {
-    die("Fehler: Kein POST erfolgt.");
+die("Fehler: Kein POST erfolgt.");
 }
 
 
@@ -43,21 +50,6 @@ $publicKey = generateKey();
 
 $query = $conn->prepare("INSERT INTO reservationen (Datum, Von, Bis, Zimmer, Bemerkung, Teilnehmer, Private_Key, Public_Key)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
-//$query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey]);
-
-
-// Ausführen und Ergebnis prüfen
-/*if ($query->execute()) {
-    echo "
-    <form id='weiterleitung' method='POST' action='confirmation.php'>
-        <input type='text' name='privateKey' value='$privateKey' readonly>
-        <input type='text' name='publicKey' value='$publicKey' readonly>
-    </form>
-    <script>document.getElementById('weiterleitung').submit();</script>
-    ";
-    exit();
-}*/
 
 
 if ($query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey])) {
@@ -78,4 +70,22 @@ $query->close();
 $conn->close();
 
 
+//$query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey]);
+
+
+// Ausführen und Ergebnis prüfen
+/*if ($query->execute()) {
+    echo "
+    <form id='weiterleitung' method='POST' action='confirmation.php'>
+        <input type='text' name='privateKey' value='$privateKey' readonly>
+        <input type='text' name='publicKey' value='$publicKey' readonly>
+    </form>
+    <script>document.getElementById('weiterleitung').submit();</script>
+    ";
+    exit();
+}*/
+
 ?>
+
+
+
