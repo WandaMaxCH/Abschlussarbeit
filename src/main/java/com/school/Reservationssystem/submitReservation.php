@@ -4,24 +4,29 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "reservierungen";
+$dbname = "reservationen";
 
 //Verbindung mit DB
-$conn = new PDO("$servername", "$username", "$password", "$dbname");
-
-if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Verbindung fehlgeschlagen: " . $e->getMessage());
 }
 
 //Daten DB Tabelle
-$datum = $_POST['datum'];
-$von = $_POST['von'];
-$bis = $_POST['bis'];
-$zimmer = $_POST['zimmer'];
-$bemerkung = $_POST['bemerkung'];
-$teilnehmer = $_POST['teilnehmer'];
-$privateKey = $_POST['privateKey'];
-$publicKey = $_POST['publicKey'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $datum = $_POST['Datum'];
+    $von = $_POST['Von'];
+    $bis = $_POST['Bis'];
+    $zimmer = $_POST['Zimmer'];
+    $bemerkung = $_POST['Bemerkung'];
+    $teilnehmer = $_POST['Teilnehmer'];
+    $privateKey = $_POST['Private_Key'];
+    $publicKey = $_POST['Public_Key'];
+} else {
+    die("Fehler: Kein POST erfolgt.");
+}
 
 
 function generateKey($length = 8) {
@@ -36,14 +41,14 @@ function generateKey($length = 8) {
 $privateKey = generateKey();
 $publicKey = generateKey();
 
-$query = $conn->prepare("INSERT INTO reservationen (datum, von, bis, zimmer, bemerkung, teilnehmer, privateKey, publicKey, privateKey)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?");
+$query = $conn->prepare("INSERT INTO reservationen (Datum, Von, Bis, Zimmer, Bemerkung, Teilnehmer, Private_Key, Public_Key)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-$query->bindParam("sssissss", $datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey);
+//$query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey]);
 
 
 // Ausführen und Ergebnis prüfen
-if ($query->execute()) {
+/*if ($query->execute()) {
     echo "
     <form id='weiterleitung' method='POST' action='confirmation.php'>
         <input type='text' name='privateKey' value='$privateKey' readonly>
@@ -52,6 +57,20 @@ if ($query->execute()) {
     <script>document.getElementById('weiterleitung').submit();</script>
     ";
     exit();
+}*/
+
+
+if ($query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey])) {
+    // Weiterleitung per POST
+    echo "
+    <form id='weiterleitung' method='POST' action='confirmation.php'>
+        <input type='text' name='privateKey' value='" . htmlspecialchars($privateKey) . "'>
+        <input type='text' name='publicKey' value='" . htmlspecialchars($publicKey) . "'>
+    </form>
+    <script>document.getElementById('weiterleitung').submit();</script>";
+    exit;
+} else {
+    die('Fehler beim Speichern: ' . $query->errorInfo()[2]);
 }
 
 // Verbindung schliessen

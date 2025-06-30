@@ -1,9 +1,40 @@
+<?php
+// 🔒 Sicherheitscheck: Seite darf nur per POST aufgerufen werden
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empty($_POST['publicKey'])) {
+    header('Location: index.html'); // ➜ Umleitung zurück zur Startseite
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Bestätigung</title>
-  <!--
+    <link rel="stylesheet" href="../../../../../main/java/com/school/Reservationssystem/style.css">
+</head>
+<body>
+<header>BESTÄTIGUNG</header>
+<h1>Danke für Ihre Reservation!</h1>
+<h2>Bitte merken Sie Ihr public- und private key um später Ihre Reservation anschauen zu können.</h2>
+<h3>Ihr private-key:</h3>
+<h4>(mit den können Sie Ihre Reservation bearbeiten)</h4>
+
+<input type="text" id="privateKey" value="<?php echo htmlspecialchars($_POST['publicKey'] ?? ''); ?>" readonly>
+
+<h3>Ihr public-key:</h3>
+<h4>(mit den können Sie Ihre Reservation einblenden lassen)</h4>
+
+<input type="text" id="publicKey" value="<?php echo htmlspecialchars($_POST['publicKey'] ?? ''); ?>" readonly>
+
+
+<a href="index.html">Zurück zur Hauptseite</a>
+
+</body>
+</html>
+
+
+<!--
   <script>
     function generatePassword() {
       var length = 8,
@@ -15,24 +46,3 @@
       return retVal;
     }
   </script>-->
-</head>
-<>
-<h1>Danke für Ihre Reservation!</h1>
-<h3>Bitte merken Sie Ihr public- und private key um später Ihre Reservation anschauen zu können.</h3>
-<h3>Ihr private-key:</h3>
-<h4>(mit den können Sie Ihre Reservation bearbeiten)</h4>
-
-<input type="text" id="privateKey" value="<?= htmlspecialchars($_POST['privateKey'] ?? '') ?>" readonly>
-
-<h3>Ihr public-key:</h3>
-<h4>(mit den können Sie Ihre Reservation einblenden)</h4>
-
-<input type="text" id="publicKey" value="<?= htmlspecialchars($_POST['publicKey'] ?? '') ?>" readonly>
-
-
-<a href="index.html">Zurück zur Hauptseite</a>
-
-
-
-</body>
-</html>
