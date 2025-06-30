@@ -21,7 +21,19 @@ h2 {
     color: #34495e;
 }
 
-.button {
+a {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+button {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 25px;
@@ -32,7 +44,7 @@ h2 {
     font-weight: bold;
 }
 
-.button:hover {
+button:hover {
     background-color: #2980b9;
 }
 form {
