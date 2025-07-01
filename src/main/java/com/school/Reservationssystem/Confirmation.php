@@ -1,7 +1,7 @@
 <?php
-// 🔒 Sicherheitscheck: Seite darf nur per POST aufgerufen werden
+//Sicherheitscheck: Seite darf nur per POST aufgerufen werden
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empty($_POST['publicKey'])) {
-    header('Location: index.html'); // ➜ Umleitung zurück zur Startseite
+    header('Location: index.html');
     exit;
 }
 ?>
