@@ -1,5 +1,5 @@
 <?php
-
+//ask if ? > is needed at the end
 /*
 echo "<pre>";
 print_r($_POST);

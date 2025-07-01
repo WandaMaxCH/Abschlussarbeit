@@ -1,5 +1,5 @@
 <?php
-//Sicherheitscheck: Seite darf nur per POST aufgerufen werden
+//Seite darf nur per POST aufgerufen werden
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empty($_POST['publicKey'])) {
     header('Location: index.html');
     exit;
@@ -32,17 +32,3 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empt
 
 </body>
 </html>
-
-
-<!--
-  <script>
-    function generatePassword() {
-      var length = 8,
-              charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-              retVal = "";
-      for (var i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-      }
-      return retVal;
-    }
-  </script>-->

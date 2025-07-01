@@ -11,7 +11,7 @@
 <h2>Bitte füllen Sie das Formular aus</h2>
 
 <!--check 'novaliadte'-->
-<form action="submitReservation.php" method="POST" novalidate>
+<form action="submitReservation.php" method="POST" onsubmit="validateForm()">
   <table>
     <tr>
       <td><label for="Datum">Datum:</label></td>
@@ -63,7 +63,7 @@
 
 <script>
   function validateForm() {
-    const datum = document.getElementById('datum').value;
+    const datum = document.getElementById('Datum').value;
     const heute = new Date().toISOString().split("T")[0];
     if (datum <= heute) {
       alert("Bitte ein Datum in der Zukunft wählen.");
