@@ -69,22 +69,6 @@ if ($query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $priv
 $query->close();
 $conn->close();
 
-
-//$query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey]);
-
-
-// Ausführen und Ergebnis prüfen
-/*if ($query->execute()) {
-    echo "
-    <form id='weiterleitung' method='POST' action='confirmation.php'>
-        <input type='text' name='privateKey' value='$privateKey' readonly>
-        <input type='text' name='publicKey' value='$publicKey' readonly>
-    </form>
-    <script>document.getElementById('weiterleitung').submit();</script>
-    ";
-    exit();
-}*/
-
 ?>
 
 

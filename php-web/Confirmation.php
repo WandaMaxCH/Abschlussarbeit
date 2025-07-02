@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empt
 <head>
   <meta charset="UTF-8">
   <title>Bestätigung</title>
-    <link rel="stylesheet" href="../../../../../main/java/com/school/Reservationssystem/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>BESTÄTIGUNG</header>
