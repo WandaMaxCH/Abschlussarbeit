@@ -8,7 +8,7 @@ exit;*/
 
 
 //Verbindungsdaten
-$servername = "localhost";
+$servername = "database";
 $username = "root";
 $password = "";
 $dbname = "reservationen";

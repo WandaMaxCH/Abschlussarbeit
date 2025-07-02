@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: .
@@ -19,7 +17,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: ""
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     container_name: reservations-mysql
