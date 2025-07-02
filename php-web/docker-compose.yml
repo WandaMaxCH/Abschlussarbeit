@@ -12,10 +12,9 @@ services:
   database:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: reservationen
-      MYSQL_USER: root
-      MYSQL_PASSWORD: ""
+
     ports:
       - "3307:3306"
     volumes:
