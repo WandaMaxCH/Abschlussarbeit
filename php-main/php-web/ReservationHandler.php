@@ -3,7 +3,7 @@
 
 class ReservationHandler
 {
-    function generateKey($length = 8) {
+    public static function generateKey($length = 8) {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $key = '';
         for ($i = 0; $i < $length; $i++) {
@@ -24,7 +24,7 @@ class ReservationHandler
         );
     }
 
-    // ✅ Speichert Daten in die DB (optional)
+    //Speichert Daten in die DB
     public static function saveToDatabase(PDO $conn, array $data, string $privateKey, string $publicKey): bool
     {
         $query = $conn->prepare("INSERT INTO reservationen (Datum, Von, Bis, Zimmer, Bemerkung, Teilnehmer, Private_Key, Public_Key)

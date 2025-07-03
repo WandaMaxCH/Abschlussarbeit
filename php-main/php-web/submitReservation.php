@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Reservation.php';
+require_once 'ReservationHandler.php';
 
 //ask if ? > is needed at the end
 /*
@@ -25,7 +25,6 @@ try {
 }
 
 
-
 // POST-Daten prüfen
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !ReservationHandler::isValidPostData($_POST)) {
     die("Ungültige Daten.");
@@ -33,10 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !ReservationHandler::isValidPostDat
 
 $privateKey = ReservationHandler::generateKey();
 $publicKey = ReservationHandler::generateKey();
-
-
-$query = $conn->prepare("INSERT INTO reservationen (Datum, Von, Bis, Zimmer, Bemerkung, Teilnehmer, Private_Key, Public_Key)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 
 if (ReservationHandler::saveToDatabase($conn, $_POST, $privateKey, $publicKey)) {
@@ -49,12 +44,8 @@ if (ReservationHandler::saveToDatabase($conn, $_POST, $privateKey, $publicKey)) 
     <script>document.getElementById('weiterleitung').submit();</script>";
     exit;
 } else {
-    die('Fehler beim Speichern: ' . $query->errorInfo()[2]);
+    die('Fehler beim Speichern: ');
 }
-
-// Verbindung schliessen
-$query->close();
-$conn->close();
 
 ?>
 
