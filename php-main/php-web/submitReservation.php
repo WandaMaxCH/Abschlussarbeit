@@ -1,4 +1,7 @@
 <?php
+
+require_once 'Reservation.php';
+
 //ask if ? > is needed at the end
 /*
 echo "<pre>";
@@ -21,37 +24,22 @@ try {
     die("Verbindung fehlgeschlagen: " . $e->getMessage());
 }
 
-//Daten DB Tabelle
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $datum = $_POST['Datum'];
-    $von = $_POST['Von'];
-    $bis = $_POST['Bis'];
-    $zimmer = $_POST['Zimmer'];
-    $bemerkung = $_POST['Bemerkung'];
-    $teilnehmer = $_POST['Teilnehmer'];
 
-} else {
-die("Fehler: Kein POST erfolgt.");
+
+// POST-Daten prüfen
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !ReservationHandler::isValidPostData($_POST)) {
+    die("Ungültige Daten.");
 }
 
+$privateKey = ReservationHandler::generateKey();
+$publicKey = ReservationHandler::generateKey();
 
-function generateKey($length = 8) {
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $key = '';
-    for ($i = 0; $i < $length; $i++) {
-        $key .= $characters[random_int(0, strlen($characters) - 1)];
-    }
-    return $key;
-}
-
-$privateKey = generateKey();
-$publicKey = generateKey();
 
 $query = $conn->prepare("INSERT INTO reservationen (Datum, Von, Bis, Zimmer, Bemerkung, Teilnehmer, Private_Key, Public_Key)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 
-if ($query->execute([$datum, $von, $bis, $zimmer, $bemerkung, $teilnehmer, $privateKey, $publicKey])) {
+if (ReservationHandler::saveToDatabase($conn, $_POST, $privateKey, $publicKey)) {
     // Weiterleitung per POST
     echo "
     <form id='weiterleitung' method='POST' action='confirmation.php'>
