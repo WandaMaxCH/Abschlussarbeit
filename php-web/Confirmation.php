@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['privateKey']) || empt
 
 <input type="text" id="publicKey" value="<?php echo htmlspecialchars($_POST['publicKey'] ?? ''); ?>" readonly>
 
-
 <a href="index.html">Zurück zur Hauptseite</a>
 
 </body>

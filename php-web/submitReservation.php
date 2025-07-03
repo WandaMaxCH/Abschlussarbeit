@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $zimmer = $_POST['Zimmer'];
     $bemerkung = $_POST['Bemerkung'];
     $teilnehmer = $_POST['Teilnehmer'];
-    $privateKey = $_POST['Private_Key'];
-    $publicKey = $_POST['Public_Key'];
+
 } else {
 die("Fehler: Kein POST erfolgt.");
 }
